@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikiflix | Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="box">
+        <div class="header">
+           <a href="./"><img src="img/WIKIFLIX.png"></a>
+        </div>
+        <div class="content">
+            <ul>
+                <li>
+                    <a href="detalhe.html?id=1">
+                        <div class="title">Pantera Negra: Wakanda Para Sempre</div>
+                        <div><img
+                                src="https://upload.wikimedia.org/wikipedia/pt/3/3b/Black_Panther_Wakanda_Forever_poster.jpg">
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="detalhe.html?id=2">
+                        <div class="title">Doutor Estranho no Multiverso da Loucura</div>
+                        <div><img src="https://br.web.img3.acsta.net/pictures/22/02/14/18/29/1382589.png"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="detalhe.html?id=3">
+                        <div class="title">Vingadores</div>
+                        <div><img src="https://br.web.img2.acsta.net/medias/nmedia/18/89/43/82/20052140.jpg"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="detalhe.html?id=4">
+                        <div class="title">Os incríveis</div>
+                        <div><img src="https://br.web.img3.acsta.net/medias/nmedia/18/90/98/38/20123472.jpg"></div>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function montarLista(data) {
+            const ul = document.querySelector('div.content ul');
+                
+            data.forEach(e => {
+                const item = document.createElement('li');
+                const link = document.createElement('a');
+                const titulo = document.createElement('div');
+                const div_imagem = document.createElement('div');
+                const imagem = document.createElement('img'); 
+                link.href = `detalhe.html?id=${e.id}`;
+                titulo.innerText = e.titulo;
+                titulo.classList.add('title');
+                imagem.src = e.foto_1;
+                div_imagem.appendChild(imagem);
+                link.appendChild(titulo);
+                link.appendChild(div_imagem);
+                item.appendChild(link);
+                ul.appendChild(item);
+            });
+        }
+        
+        async function listar() {
+            const response = await fetch('./../api/src/filme_rest.php');
+            if (response.ok) {
+                const data = await response.json();
+                montarLista(data);
+            }else{
+
+            }
+        }
+        listar();
+    </script>
+
+</body>
+
+</html>

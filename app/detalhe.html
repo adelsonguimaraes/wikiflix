@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikiflix | Detalhe do filme</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <div class="box">
+        <div class="header">
+            <a href="./"><img src="img/WIKIFLIX.png"></a>
+        </div>
+        <div class="content">
+            <div class="detail-title">
+                <!-- titulo do filme -->
+            </div>
+            <div class="detail-body">
+                <!-- imagem principal -->
+                <img src="">
+                <div class="detail-body-right">
+                    <h3>Avaliações</h3>
+                    <ul>
+                        <!-- estrelas de avaliação -->
+                    </ul>
+
+                    <h3>Sinopse</h3>
+                    <p>
+                        <!-- sinopse -->
+                    </p>
+                </div>
+
+            </div>
+            <div class="detail-footer">
+                <h3>Imagens</h3>
+                <ul>
+                    <!-- imagems extras -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        function adicionarEstrela(ativo) {
+            const avaliacoes = document.querySelector('.detail-body .detail-body-right ul');
+            const item = document.createElement('li');
+            const estrela = document.createElement('i');
+            estrela.classList.add('fa');
+            estrela.classList.add('fa-star');
+            estrela.classList.add(`star-${ativo}`);
+            item.appendChild(estrela);
+            avaliacoes.appendChild(item);
+        }
+
+        function adicionarImagem(src) {
+            const imagens = document.querySelector('.detail-footer ul');
+            const item = document.createElement('li');
+            const imagem = document.createElement('img');
+            imagem.src = src;
+            item.appendChild(imagem)
+            imagens.appendChild(item)
+        }
+
+        function alimentarDados(data) {
+            const titulo = document.querySelector('.detail-title');
+            const imagem_1 = document.querySelector('.detail-body img');
+            const sinopse = document.querySelector('.detail-body-right p');
+            const imagens = document.querySelector('.detail-footer ul');
+
+
+            titulo.innerText = data.titulo;
+            imagem_1.src = data.foto_1;
+
+
+            for (let i = 0; i < data.avaliacao; i++) {
+                adicionarEstrela('active');
+            }
+            for (let i = 0; i < 5 - data.avaliacao; i++) {
+                adicionarEstrela('disabled');
+            }
+
+            sinopse.innerText = data.sinopse;
+            
+            adicionarImagem(data.foto_2);
+            adicionarImagem(data.foto_3);
+            adicionarImagem(data.foto_4);
+        }
+
+        async function buscarPorId() {
+            const response = await fetch(`./../api/src/filme_rest.php?id=${id}`);
+            if (response.ok) {
+                const data = await response.json();
+                alimentarDados(data);
+            } else {
+
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            buscarPorId();
+        });
+
+
+    </script>
+</body>
+
+</html>
