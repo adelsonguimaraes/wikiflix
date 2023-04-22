@@ -63,6 +63,7 @@
 .content > ul > li > a > div > img {
     max-width: 100%;
     width: 400px;
+    height: 560px;
 }
 
 /* pagina de detalhe */

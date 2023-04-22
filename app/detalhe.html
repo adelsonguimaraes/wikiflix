@@ -79,7 +79,7 @@
 
 
             titulo.innerText = data.titulo;
-            imagem_1.src = data.foto_1;
+            imagem_1.src = data.imagem_1;
 
 
             for (let i = 0; i < data.avaliacao; i++) {
@@ -91,9 +91,9 @@
 
             sinopse.innerText = data.sinopse;
             
-            adicionarImagem(data.foto_2);
-            adicionarImagem(data.foto_3);
-            adicionarImagem(data.foto_4);
+            adicionarImagem(data.imagem_2);
+            adicionarImagem(data.imagem_3);
+            adicionarImagem(data.imagem_4);
         }
 
         async function buscarPorId() {

@@ -15,6 +15,10 @@ class FilmeControl {
         $this->obj = $obj;
     }
 
+    function cadastrar($obj) {
+        return $this->dao->cadastrar($obj);
+    }
+
     function listar() {
         return $this->dao->listar();
     }
